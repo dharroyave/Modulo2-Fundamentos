@@ -1,12 +1,15 @@
 {
-
     "id": 1,
-    "nombre":"Duvan Arroyave",
+    "nombre": "Duvan Arroyave",
     "edad": 35,
     "direccion": {
-    "ciudad": "Bogota",
-    "pais": "Colombia"
+        "ciudad": "Bogota",
+        "pais": "Colombia"
     },
-    "hobbies": ["gimnasio", "correr", "leer"],
+    "hobbies": [
+        "gimnasio",
+        "correr",
+        "leer"
+    ],
     "esCasado": true
 }

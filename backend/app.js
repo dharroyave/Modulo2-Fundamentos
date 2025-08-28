@@ -4,13 +4,13 @@
 // 1. Importar las dependencias necesarias
 import express from 'express';
 import dotenv from 'dotenv';
+import { conexionMongo } from './src/config/db.js';
 
 // 2. Configurar las dependencias que necesitamos (servidor)
 const app = express();
 dotenv.config();
-
-
 const port = process.env.PORT;
+conexionMongo(); // Conectar a la base de datos
 
 
 

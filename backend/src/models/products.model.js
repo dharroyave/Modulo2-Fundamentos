@@ -26,6 +26,10 @@ const productSchema = new mongoose.Schema({
     isAvailable: {
         type: Boolean, 
     },
+    Date: {
+        type: Date, 
+        default: Date.now
+    }
 });
 
 //3. construir el modelo

@@ -1,6 +1,5 @@
 //1. importaciones
 import mongoose from "mongoose";
-import { use } from "react";
 
 //2. construir la plantilla del modelo
 const userSchema = new mongoose.Schema({

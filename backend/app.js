@@ -1,31 +1,30 @@
-// El archivo de ejecución principal de la aplicación
-// configuración del servidor y gestionar la lógica de negocio
+// El archivo de ejecución de nuestra applicación
+// configurar nuestro servidor y gestionar la lógica de negocio
 
-// 1. Importar las dependencias necesarias
-import express from 'express';
-import dotenv from 'dotenv';
-import { conexionMongo } from './src/config/db.js';
-import {productRouter} from "./src/routes/products.routes.js";
-import {userRouter} from "./src/routes/users.routes.js"
+// 1. Importar las dependencias y modulos necesarios 
+import express from "express";
+import dotenv from "dotenv";
+import { conexionMongo } from "./src/config/db.js";
+import { productRouter } from "./src/routes/products.routes.js";
+import { userRouter } from "./src/routes/users.routes.js";
 
-// 2. Configurar las dependencias que necesitamos (servidor)
+// 2. configurar las dependencias que necesitemos
 const app = express();
 dotenv.config();
 const port = process.env.PORT;
-conexionMongo(); // Conectar a la base de datos
+conexionMongo(); //esto es lo que hace la conexión con db
 
-
-
-// 3. Funcionalidades que queremos implementar
-app.get('/', (req, res) => {
-  res.send('Server Works!');
+// 3. funcionalidades que necesite agregar
+app.get("/",(request,response)=>{
+ response.send("Server works!")
 });
 
-app.use(express.json());
-app.use("/products",productRouter);
-app.use("/users",userRouter)
+app.use(express.json()); //es para usar formato json
+app.use("/products", productRouter);
+app.use("/users", userRouter)
 
-// 4. levantar el servidor
-app.listen(port, () => {
-  console.log(`Servidor ejecutandose en http://localhost:${port}`);
+
+// 4. levantar el servidor //3000, 9000
+app.listen(port, ()=>{
+  console.log(`El servidor está ejecutándose en http://localhost:${port}`)
 });

@@ -1,30 +1,71 @@
-// importar las dependencias y modulos necesarios:
-import {productModel} from "../models/products.model.js";
+// 1. importar dependencias y módulos necesarios
+import { productModel } from "../models/products.model.js";
 
-//definir las acciones que van a realizar - CRUD
 
-// 1. metodo para crear un producto -> Post
+// Definir las acciones que van a realizar - CRUD
 
-export const postProduct = (request,response) => {
- // aca va la logica de la peticion
-    return response.json({"mensaje":"Funciona peticion POST"})
+// 1. Método para CREAR un producto -> POST
+export const postProduct = async (request, response) => {
+    try {
+        await productModel.create(request.body);
+        return response.status(201).json({
+            "mensaje": "Producto creado corectamente"
+        });
+    } catch (error) {
+        return response.status(400).json({
+            "mensaje": "Ocurrió un error al crear el producto",
+            "error": error.message || error
+        });
+    }
+}
+
+// 2. Método para MOSTRAR todos los productos -> GET
+export const getAllProducts = async (request, response) => {
+    try {
+        const allProducts = await productModel.find();
+        return response.status(200).json({
+            "mensaje": "Petición exitosa",
+            "data": allProducts
+        });
+        
+    } catch (error) {
+        return response.status(500).json({
+            "mensaje": "Ocurrió un error al mostrar productos",
+            "error": error.message || error
+        });
+    }
+}
+
+// 3. Método para ACTUALIZAR un producto -> PUT
+export const putProductById = async (request, response) => {
+    try {
+        const idForUpdate = request.params.id;
+        const dataForUpdate = request.body;
+        await productModel.findByIdAndUpdate(idForUpdate, dataForUpdate);
+        return response.status(200).json({
+            "mensaje": "Producto actualizado exitósamente"
+        });
+    } catch (error) {
+        return response.status(500).json({
+            "mensaje": "Ocurrió un error al actualizar producto",
+            "error": error.message || error
+        });
+    }
 
 }
 
-//2. metodo para mostrar todos los productos -> GET 
-
-export const getProduct = (request,response) => {
-    return response.json ({"mensaje":"funciona peticion GET"})
+// 4. Método para ELIMINAR un producto -> DELETE
+export const deleteProductById = async (request, response) => {
+    try {
+        const idForDelete = request.params;
+        await productModel.findByIdAndDelete(idForDelete);
+        return response.status(200).json({
+            "mensaje": "Producto eliminado exitósamente"
+        });
+    } catch (error) {
+        return response.status(500).json({
+            "mensaje": "Ocurrió un error al eliminar producto",
+            "error": error.message || error
+        });
+    }
 }
-
-//3. metodo para actualizar  un producto -> PUT
-
-export const putProductById = (request,response) => {
-    return response.json ({"mensaje":"funciona peticion PUT"})
-}
-
-//4. metodo para Eliminar un producto -> DELETE
-
-export const deleteProductById =(request,response)=>{
-     return response.json ({"mensaje":"funciona peticion DELETE"})
-} 

@@ -57,7 +57,7 @@ export const putProductById = async (request, response) => {
 // 4. Método para ELIMINAR un producto -> DELETE
 export const deleteProductById = async (request, response) => {
     try {
-        const idForDelete = request.params;
+        const idForDelete = request.params.id;
         await productModel.findByIdAndDelete(idForDelete);
         return response.status(200).json({
             "mensaje": "Producto eliminado exitósamente"

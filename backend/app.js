@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import { conexionMongo } from "./src/config/db.js";
 import { productRouter } from "./src/routes/products.routes.js";
 import { userRouter } from "./src/routes/users.routes.js";
+import cors from "cors";
 
 // 2. configurar las dependencias que necesitemos
 const app = express();
@@ -19,9 +20,11 @@ app.get("/",(request,response)=>{
  response.send("Server works!")
 });
 
+app.use(cors()); //habilitar cors
 app.use(express.json()); //es para usar formato json
 app.use("/products", productRouter);
 app.use("/users", userRouter)
+
 
 
 // 4. levantar el servidor //3000, 9000

@@ -31,19 +31,27 @@ export const storage = multer.diskStorage({
     },
 });
 
-
-
-
 // 3.expesificar el tipo de archivo que se va a permitir subir al servidor
+const fileFilter = (req, file, cb) => {
+    const allowed = ["image/gif", "image/jpeg","image/png","image/svg+xml","image/webp"]; //tipos de archivos permitidos
 
-
-
+    if (allowed.includes(file.mimetype)) {
+        cb(null, true); //aceptar el archivo si es permitido, lo guarda en la carpeta uploads
+    } else {
+        cb(new Error("Tipo de archivo no permitido"), false); //rechazar el archivo si no es permitido
+    }
+};
 
 // 4.definir el tamaño máximo del archivo que se va a permitir subir al servidor
-
-
+const limits = {
+    fileSize: 1024 * 1024 * 5, //tamaño máximo del archivo en bytes (5MB)
+};
 
 // 5.exportar las características de multer
-
+export const upload = multer({
+    storage,
+    fileFilter,
+    limits,
+}); // el unico obligatorio es storage, los otros dos son opcionales
 
 

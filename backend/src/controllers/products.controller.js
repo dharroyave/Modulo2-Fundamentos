@@ -21,7 +21,7 @@ export const postProduct = async (request, response) => {
         };
 
 
-        await productModel.create(request.body);
+        await productModel.create(newProduct);
         return response.status(201).json({
             "mensaje": "Producto creado corectamente"
         });

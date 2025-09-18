@@ -33,6 +33,11 @@ export const postUser = async (request, response) => {
 // 2. Método para MOSTRAR todos los usuarios -> GET
 export const getAllUsers = async (request, response) => {
     try {
+        const allUsers = await userModel.find();
+        return response.status(200).json({
+            "mensaje": "Petición exitosa",
+            "data": allUsers
+        });
 
     } catch (error) {
         return response.status(400).json({

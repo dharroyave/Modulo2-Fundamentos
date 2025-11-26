@@ -22,19 +22,26 @@ const _dirname = path.dirname(_filename); //_dirname = backend
 
 
 // 3. funcionalidades que necesite agregar
-app.get("/",(request,response)=>{
- response.send("Server works!")
-});
+// app.get("/",(request,response)=>{
+//  response.send("Server works!")
+// });
 
 app.use(cors()); //habilitar cors
 app.use(express.json()); //es para usar formato json
 app.use("/products", productRouter);
 app.use("/users", userRouter)
-app.use("/login", loginRouter);
 app.use('/uploads', express.static(path.join(_dirname, 'src/uploads')));
+app.use("/login", loginRouter);
+
+// servir fronted en produccion
+app.use(express.static(path.join(_dirname, "dist", "frontend", "browser")));
+
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(_dirname, "dist", "frontend", "browser", "index.html"));
+});
 
 
 // 4. levantar el servidor //3000, 9000
-app.listen(port, ()=>{
+app.listen(port, () => {
   console.log(`El servidor está ejecutándose en http://localhost:${port}`)
 });
